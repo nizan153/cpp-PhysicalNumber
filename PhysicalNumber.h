@@ -8,18 +8,18 @@ using namespace std;
 
 namespace ariel {
 
-    static string type[] = { "km", "m", "cm", "hour", "min", "sec", "ton", "kg", "g" };
-    
     class PhysicalNumber{
         private:
-        //     Unit unit;
-        //     double data;
-
-        public:
             Unit unit;
             double data;
 
+        public:
             PhysicalNumber(double, Unit);
+
+            double getData();
+            Unit getUnit();
+            void setData(double);
+            void setUnit(Unit);
             
             const PhysicalNumber operator+();
             const PhysicalNumber& operator++();       //prefix

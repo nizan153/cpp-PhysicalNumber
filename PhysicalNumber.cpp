@@ -1,13 +1,24 @@
 #include "PhysicalNumber.h"
 #include <iostream>
-#include "Unit.h"
 using namespace ariel;
-
-// char* getEnumString(Unit u);
-
 
 PhysicalNumber::PhysicalNumber(double x, Unit u) : data(x), unit(u) {}
 
+double PhysicalNumber::getData() {
+    return data;
+}
+
+Unit PhysicalNumber::getUnit() {
+    return unit;
+}
+
+void PhysicalNumber::setData(double d) {
+    data = d;
+}
+
+void PhysicalNumber::setUnit(Unit u) {
+    unit = u;
+}
 
 const PhysicalNumber PhysicalNumber::operator+() {
     return PhysicalNumber(data, unit);
