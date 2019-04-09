@@ -15,22 +15,28 @@ namespace ariel {
 
         public:
             PhysicalNumber(double, Unit);
+            PhysicalNumber(const PhysicalNumber&);
 
             double getData();
             Unit getUnit();
             void setData(double);
             void setUnit(Unit);
+            bool checkUnit(PhysicalNumber&);
+            bool isLength();
+            bool isTime();
+            bool isMass();
             
-            const PhysicalNumber operator+();
-            const PhysicalNumber& operator++();       //prefix
-            const PhysicalNumber& operator++(int);    //postfix
-            const PhysicalNumber operator+=(const PhysicalNumber&);
-            friend const PhysicalNumber operator+(PhysicalNumber&, const PhysicalNumber&);
-            const PhysicalNumber operator-();
-            const PhysicalNumber& operator--();        //prefix
-            const PhysicalNumber& operator--(int);     //postfix
-            const PhysicalNumber operator-=(const PhysicalNumber&);
-            friend const PhysicalNumber operator-(const PhysicalNumber&, const PhysicalNumber&);
+
+            PhysicalNumber operator+();
+            PhysicalNumber operator++();       //prefix
+            PhysicalNumber operator++(int);    //postfix
+            PhysicalNumber& operator+=(const PhysicalNumber&);
+            PhysicalNumber operator+(const PhysicalNumber&);
+            PhysicalNumber operator-();
+            PhysicalNumber operator--();        //prefix
+            PhysicalNumber operator--(int);     //postfix
+            PhysicalNumber& operator-=(const PhysicalNumber&);
+            PhysicalNumber operator-(const PhysicalNumber&);
 
             bool operator==(const PhysicalNumber&);
             bool operator!=(const PhysicalNumber&);
@@ -41,6 +47,23 @@ namespace ariel {
         
             friend ostream& operator<<(ostream&, const PhysicalNumber&);
             friend istream& operator>>(istream&, PhysicalNumber&);    
+            friend istream& checkInputUnit(istream&, PhysicalNumber&);
+    };
+    class Convertor {
+        public:
+            static double toKM(PhysicalNumber&);
+            static double toM(PhysicalNumber&);
+            static double toCM(PhysicalNumber&);
+            static double toHour(PhysicalNumber&);
+            static double toMin(PhysicalNumber&);
+            static double toSec(PhysicalNumber&);
+            static double toTon(PhysicalNumber&);
+            static double toKG(PhysicalNumber&);
+            static double toG(PhysicalNumber&);
+
+            // static double convertLength(PhysicalNumber&, Unit);
+            // static double convertTime(PhysicalNumber&, Unit);
+            // static double convertMasa(PhysicalNumber&, Unit);
     };
 }
 
