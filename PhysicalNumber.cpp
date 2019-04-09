@@ -6,21 +6,13 @@ PhysicalNumber::PhysicalNumber(double x, Unit u) : data(x), unit(u) {}
 
 PhysicalNumber::PhysicalNumber(const PhysicalNumber& other) : data(other.data), unit(other.unit) {}
 
-double PhysicalNumber::getData() {
-    return data;
-}
+double PhysicalNumber::getData() { return data; }
 
-Unit PhysicalNumber::getUnit() {
-    return unit;
-}
+Unit PhysicalNumber::getUnit() { return unit; }
 
-void PhysicalNumber::setData(double d) {
-    data = d;
-}
+void PhysicalNumber::setData(double d) { data = d; }
 
-void PhysicalNumber::setUnit(Unit u) {
-    unit = u;
-}
+void PhysicalNumber::setUnit(Unit u) { unit = u; }
 
 bool PhysicalNumber::checkUnit(PhysicalNumber& pn) {
     if(this->isLength()) {
@@ -50,11 +42,9 @@ PhysicalNumber PhysicalNumber::operator+() {
 PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other) {
     PhysicalNumber temp = other;
     double ans;
-
     if(!checkUnit(temp)){
-        throw std::invalid_argument("different Units");
+        throw std::invalid_argument("Not the same units");
     }
-
     else if(isLength()){
         switch(this->getUnit()) {
             case Unit::KM:
@@ -100,12 +90,11 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other) {
                 break;
         }
     }
-    
     return PhysicalNumber(ans, this->getUnit());
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
-    this->setData(this->data + 1);
+    this->setData(this->getData() + 1);
     return *this;
 }
 
@@ -126,7 +115,7 @@ PhysicalNumber PhysicalNumber::operator-() {
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
-    this->setData(this->data - 1);
+    this->setData(this->getData() - 1);
     return *this;
 }
 
@@ -144,14 +133,7 @@ PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber& other) {
 
 PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber& other) {
     PhysicalNumber temp = other;
-    double ans;
-
-    if(!checkUnit(temp)){
-        throw std::invalid_argument("different Units");
-    }
-
     temp = *this + (-temp);
-    
     return PhysicalNumber(temp.getData(), this->getUnit());
 }
 
@@ -186,11 +168,9 @@ bool PhysicalNumber::operator!=(const PhysicalNumber& other) {
 bool PhysicalNumber::operator>(const PhysicalNumber& other) {
     PhysicalNumber temp = other;
     double left, right;
-
     if(!checkUnit(temp)){
         throw std::invalid_argument("different Units");
     }
-    
     else if(isLength()){
         left = Convertor::toCM(*this);
         right = Convertor::toCM(temp);
@@ -203,18 +183,15 @@ bool PhysicalNumber::operator>(const PhysicalNumber& other) {
         left = Convertor::toSec(*this);
         right = Convertor::toSec(temp);        
     }
-
     return left > right;
 } 
 
 bool PhysicalNumber::operator<(const PhysicalNumber& other) {
     PhysicalNumber temp = other;
     double left, right;
-
     if(!checkUnit(temp)){
         throw std::invalid_argument("different Units");
     }
-    
     else if(isLength()){
         left = Convertor::toCM(*this);
         right = Convertor::toCM(temp);
@@ -227,7 +204,6 @@ bool PhysicalNumber::operator<(const PhysicalNumber& other) {
         left = Convertor::toSec(*this);
         right = Convertor::toSec(temp);        
     }
-
     return left < right;
 }
 
@@ -302,9 +278,7 @@ istream& ariel::checkInputUnit(istream& is, PhysicalNumber& pn) {
         is.setstate(ios::failbit);
         return is; 
     }
-
     s = s.substr(i+1, j-1);
-
     if(s.compare("km") == 0) { pn.setUnit(Unit::KM); }
     else if(s.compare("m") == 0) { pn.setUnit(Unit::M); }
     else if(s.compare("cm") == 0) { pn.setUnit(Unit::M); }
