@@ -86,7 +86,10 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other) {
             case Unit::SEC:
                 ans = Convertor::toSec(temp) + this->getData();
                 break;
-            default:
+            default:PhysicalNumber temp = other;
+    if(!checkUnit(temp)){
+        throw std::invalid_argument("different Units");
+    }
                 break;
         }
     }
@@ -144,7 +147,6 @@ bool PhysicalNumber::operator==(const PhysicalNumber& other) {
     if(!checkUnit(temp)){
         throw std::invalid_argument("different Units");
     }
-
     else if(isLength()){
         left = Convertor::toCM(*this);
         right = Convertor::toCM(temp);
@@ -157,11 +159,14 @@ bool PhysicalNumber::operator==(const PhysicalNumber& other) {
         left = Convertor::toSec(*this);
         right = Convertor::toSec(temp);
     }
-
     return left == right;
 }
 
 bool PhysicalNumber::operator!=(const PhysicalNumber& other) {
+    PhysicalNumber temp = other;
+    if(!checkUnit(temp)){
+        throw std::invalid_argument("different Units");
+    }
     return !(*this==other);
 }
 
@@ -208,14 +213,22 @@ bool PhysicalNumber::operator<(const PhysicalNumber& other) {
 }
 
 bool PhysicalNumber::operator<=(const PhysicalNumber& other) {
+    PhysicalNumber temp = other;
+    if(!checkUnit(temp)){
+        throw std::invalid_argument("different Units");
+    }
     return (this->operator==(other)) || (this->operator<(other));
 }
 
 bool PhysicalNumber::operator>=(const PhysicalNumber& other) {
+    PhysicalNumber temp = other;
+    if(!checkUnit(temp)){
+        throw std::invalid_argument("different Units");
+    }
     return (this->operator==(other)) || (this->operator>(other));
 }
 
-ostream& ariel::operator<<(ostream& os, const PhysicalNumber& pn) {
+std::ostream& ariel::operator<<(ostream& os, const PhysicalNumber& pn) {
     PhysicalNumber temp(pn);
     string str;
     switch (temp.getUnit()) {
@@ -250,9 +263,9 @@ ostream& ariel::operator<<(ostream& os, const PhysicalNumber& pn) {
     return os << temp.getData() << "[" << str << "]";
 }
 
-istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
+std::istream& ariel::operator>>(istream& is, PhysicalNumber& pn) {
     string str;
-    double d;
+    long double d;
     ios::pos_type sp = is.tellg();
     if(!(is >> d) || !(checkInputUnit(is, pn))) {
         auto es = is.rdstate();
