@@ -28,13 +28,13 @@ namespace ariel {
             
 
             PhysicalNumber operator+();
-            PhysicalNumber operator++();       //prefix
-            PhysicalNumber operator++(int);    //postfix
+            PhysicalNumber& operator++();       //prefix
+            PhysicalNumber& operator++(int);    //postfix
             PhysicalNumber& operator+=(const PhysicalNumber&);
             PhysicalNumber operator+(const PhysicalNumber&);
             PhysicalNumber operator-();
-            PhysicalNumber operator--();        //prefix
-            PhysicalNumber operator--(int);     //postfix
+            PhysicalNumber& operator--();        //prefix
+            PhysicalNumber& operator--(int);     //postfix
             PhysicalNumber& operator-=(const PhysicalNumber&);
             PhysicalNumber operator-(const PhysicalNumber&);
 

@@ -1,5 +1,6 @@
 #include "PhysicalNumber.h"
 #include <iostream>
+#include <iomanip>
 using namespace ariel;
 
 PhysicalNumber::PhysicalNumber(double x, Unit u) : data(x), unit(u) {}
@@ -96,12 +97,12 @@ PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber& other) {
     return PhysicalNumber(ans, this->getUnit());
 }
 
-PhysicalNumber PhysicalNumber::operator++() {
+PhysicalNumber& PhysicalNumber::operator++() {
     this->setData(this->getData() + 1);
     return *this;
 }
 
-PhysicalNumber PhysicalNumber::operator++(int unused) {
+PhysicalNumber& PhysicalNumber::operator++(int unused) {
     PhysicalNumber temp = *this;
     ++(*this);
     return temp;
@@ -117,12 +118,12 @@ PhysicalNumber PhysicalNumber::operator-() {
     return PhysicalNumber(-data, unit);
 }
 
-PhysicalNumber PhysicalNumber::operator--() {
+PhysicalNumber& PhysicalNumber::operator--() {
     this->setData(this->getData() - 1);
     return *this;
 }
 
-PhysicalNumber PhysicalNumber::operator--(int unused) {
+PhysicalNumber& PhysicalNumber::operator--(int unused) {
     PhysicalNumber temp = *this;
     --(*this);
     return temp;
