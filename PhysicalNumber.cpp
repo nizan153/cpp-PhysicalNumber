@@ -102,7 +102,7 @@ PhysicalNumber& PhysicalNumber::operator++() {
     return *this;
 }
 
-PhysicalNumber& PhysicalNumber::operator++(int unused) {
+PhysicalNumber PhysicalNumber::operator++(int unused) {
     PhysicalNumber temp = *this;
     ++(*this);
     return temp;
@@ -123,7 +123,7 @@ PhysicalNumber& PhysicalNumber::operator--() {
     return *this;
 }
 
-PhysicalNumber& PhysicalNumber::operator--(int unused) {
+PhysicalNumber PhysicalNumber::operator--(int unused) {
     PhysicalNumber temp = *this;
     --(*this);
     return temp;
