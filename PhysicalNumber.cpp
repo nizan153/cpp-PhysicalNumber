@@ -414,7 +414,7 @@ double Convertor::toTon(PhysicalNumber& pn) {
             ans = pn.getData() / 1000;
             break;
         case Unit::G :
-            ans = pn.getData() / 1000;
+            ans = pn.getData() / 1000 / 1000;
             break;
         default:
             ans = pn.getData();
